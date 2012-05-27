@@ -1,0 +1,11 @@
+Camel Elasticsearch component
+----------------------------------
+
+This Elasticsearch component for Camel supports indexing content into the <a href="http://www.elasticsearch.org/">Elasticsearch</a> search engine.
+
+Feel free to clone this Github repository and enhance the component.
+
+Regards,
+
+Cedric Vidal
+http://blog.proxiad.com
