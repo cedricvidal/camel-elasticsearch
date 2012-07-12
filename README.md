@@ -10,12 +10,6 @@ Regards,
 Cedric Vidal
 http://blog.proxiad.com
 
-# Building from sources
-
-	$ git clone git://github.com/cedricvidal/camel-elasticsearch.git
-	$ cd camel-elasticsearch
-	$ mvn install
-
 # Maven configuration
 
 #### Add the following Maven repository to your pom.xml
@@ -41,3 +35,10 @@ http://blog.proxiad.com
 			<version>0.0.1</version>
 		</dependency>
 	</dependencies>
+
+# Building from sources
+
+	$ git clone git://github.com/cedricvidal/camel-elasticsearch.git
+	$ cd camel-elasticsearch
+	$ mvn install
+
