@@ -26,7 +26,7 @@ import org.apache.camel.impl.DefaultComponent;
 /**
  * Represents the component that manages {@link ElasticsearchEndpoint}.
  * 
- * @author <a href="mailto:c.vidal@proxiad.com">Cedric Vidal</a>
+ * @author <a href="http://cedric.vidal.biz">Cedric Vidal</a>
  */
 public class ElasticsearchComponent extends DefaultComponent {
 

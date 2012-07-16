@@ -28,7 +28,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * @author <a href="mailto:c.vidal@proxiad.com">Cedric Vidal</a>
+ * @author <a href="http://cedric.vidal.biz">Cedric Vidal</a>
  */
 public class ElasticsearchConfigurationTest {
 

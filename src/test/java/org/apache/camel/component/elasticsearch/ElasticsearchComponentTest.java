@@ -24,7 +24,7 @@ import org.apache.camel.test.junit4.CamelTestSupport;
 import org.junit.Test;
 
 /**
- * @author <a href="mailto:c.vidal@proxiad.com">Cedric Vidal</a>
+ * @author <a href="http://cedric.vidal.biz">Cedric Vidal</a>
  */
 public class ElasticsearchComponentTest extends CamelTestSupport {
 

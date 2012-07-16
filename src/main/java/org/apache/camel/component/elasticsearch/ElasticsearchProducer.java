@@ -31,7 +31,7 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 /**
  * Represents an Elasticsearch producer.
  * 
- * @author <a href="mailto:c.vidal@proxiad.com">Cedric Vidal</a>
+ * @author <a href="http://cedric.vidal.biz">Cedric Vidal</a>
  */
 public class ElasticsearchProducer extends DefaultProducer {
     private ElasticsearchEndpoint endpoint;
