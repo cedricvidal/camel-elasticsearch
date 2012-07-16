@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.proxiad.camel.component.elasticsearch;
+package org.apache.camel.component.elasticsearch;
 
 import org.apache.camel.Consumer;
 import org.apache.camel.Processor;
@@ -26,17 +26,18 @@ import org.elasticsearch.node.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * Represents an Elasticsearch endpoint.
  * 
  * @author <a href="mailto:c.vidal@proxiad.com">Cedric Vidal</a>
  */
 public class ElasticsearchEndpoint extends DefaultEndpoint {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ElasticsearchEndpoint.class);
+
     private Node node;
-	private Client client;
-	private ElasticsearchConfiguration config;
-	private static final Logger log = LoggerFactory.getLogger(ElasticsearchEndpoint.class);
+    private Client client;
+    private ElasticsearchConfiguration config;
 
     public ElasticsearchEndpoint(String uri, ElasticsearchComponent component, ElasticsearchConfiguration config) {
         super(uri, component);
@@ -55,41 +56,41 @@ public class ElasticsearchEndpoint extends DefaultEndpoint {
         return true;
     }
 
-	@Override
-	protected void doStart() throws Exception {
-		super.doStart();
-		if(config.isLocal()) {
-			log.info("Starting local ElasticSearch server");
-		} else {
-			log.info("Joining ElasticSearch cluster " + config.getClusterName());
-		}
-		node = config.buildNode();
-		client = node.client();
-	}
+    @Override
+    protected void doStart() throws Exception {
+        super.doStart();
+        if (config.isLocal()) {
+            LOG.info("Starting local ElasticSearch server");
+        } else {
+            LOG.info("Joining ElasticSearch cluster " + config.getClusterName());
+        }
+        node = config.buildNode();
+        client = node.client();
+    }
 
-	@Override
-	protected void doStop() throws Exception {
-		if(config.isLocal()) {
-			log.info("Stopping local ElasticSearch server");
-		} else {
-			log.info("Leaving ElasticSearch cluster " + config.getClusterName());
-		}
-		node.close();
-		super.doStop();
-	}
+    @Override
+    protected void doStop() throws Exception {
+        if (config.isLocal()) {
+            LOG.info("Stopping local ElasticSearch server");
+        } else {
+            LOG.info("Leaving ElasticSearch cluster " + config.getClusterName());
+        }
+        node.close();
+        super.doStop();
+    }
 
-	@Override
-	protected void doShutdown() throws Exception {
-		// TODO Auto-generated method stub
-		super.doShutdown();
-	}
+    @Override
+    protected void doShutdown() throws Exception {
+        // TODO Auto-generated method stub
+        super.doShutdown();
+    }
 
-	public Client getClient() {
-		return client;
-	}
+    public Client getClient() {
+        return client;
+    }
 
-	public ElasticsearchConfiguration getConfig() {
-		return config;
-	}
+    public ElasticsearchConfiguration getConfig() {
+        return config;
+    }
 
 }

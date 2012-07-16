@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.proxiad.camel.elasticsearch;
+package org.apache.camel.component.elasticsearch;
 
 import java.util.HashMap;
 
@@ -25,22 +25,18 @@ import org.junit.Test;
 
 /**
  * @author <a href="mailto:c.vidal@proxiad.com">Cedric Vidal</a>
- *
  */
-public class ElasticsearchIndexNameAndTypeInHeaderComponentTest extends CamelTestSupport {
+public class ElasticsearchComponentTest extends CamelTestSupport {
 
-	@Test
+    @Test
     public void testTimerInvokesBeanMethod() throws Exception {
         MockEndpoint mock = getMockEndpoint("mock:result");
-        mock.expectedMinimumMessageCount(1);       
-        sendBody("direct:index",
-        	new HashMap<String, String>(){{
-        		put("content", "test");
-        	}},
-        	new HashMap() {{
-        		put("indexName", "twitter");
-        		put("indexType", "tweet");
-        	}});
+        mock.expectedMinimumMessageCount(1);
+        sendBody("direct:index", new HashMap<String, String>() {
+            {
+                put("content", "test");
+            }
+        });
         assertMockEndpointsSatisfied();
     }
 
@@ -48,9 +44,7 @@ public class ElasticsearchIndexNameAndTypeInHeaderComponentTest extends CamelTes
     protected RouteBuilder createRouteBuilder() throws Exception {
         return new RouteBuilder() {
             public void configure() {
-                from("direct:index")
-                  .to("elasticsearch://local")
-                  .to("mock:result");
+                from("direct:index").to("elasticsearch://local?indexName=twitter&indexType=tweet").to("mock:result");
             }
         };
     }

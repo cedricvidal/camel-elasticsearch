@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.proxiad.camel.component.elasticsearch;
+package org.apache.camel.component.elasticsearch;
 
 import java.net.URI;
 import java.util.Map;
@@ -29,19 +29,20 @@ import org.apache.camel.impl.DefaultComponent;
  * @author <a href="mailto:c.vidal@proxiad.com">Cedric Vidal</a>
  */
 public class ElasticsearchComponent extends DefaultComponent {
-	private ElasticsearchConfiguration config;
+
+    private ElasticsearchConfiguration config;
 
     public ElasticsearchComponent() {
-		super();
-		config = new ElasticsearchConfiguration();
-	}
+        super();
+        config = new ElasticsearchConfiguration();
+    }
 
-	public ElasticsearchComponent(CamelContext context) {
-		super(context);
-		config = new ElasticsearchConfiguration();
-	}
+    public ElasticsearchComponent(CamelContext context) {
+        super(context);
+        config = new ElasticsearchConfiguration();
+    }
 
-	protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
+    protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
         config.parseURI(new URI(uri), parameters, this);
         Endpoint endpoint = new ElasticsearchEndpoint(uri, this, config);
         setProperties(endpoint, parameters);

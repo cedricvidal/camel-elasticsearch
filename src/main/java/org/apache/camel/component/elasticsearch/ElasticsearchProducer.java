@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.proxiad.camel.component.elasticsearch;
+package org.apache.camel.component.elasticsearch;
 
 import java.util.Map;
 
@@ -46,54 +46,49 @@ public class ElasticsearchProducer extends DefaultProducer {
         log.debug("Indexing " + exchange);
 
         String indexName = exchange.getIn().getHeader("indexName", String.class);
-		if(indexName == null) {
-			indexName = endpoint.getConfig().getIndexName();
-		}
+        if (indexName == null) {
+            indexName = endpoint.getConfig().getIndexName();
+        }
 
-		String indexType = exchange.getIn().getHeader("indexType", String.class);
-		if (indexType == null) {
-			indexType = endpoint.getConfig().getIndexType();
-		}
+        String indexType = exchange.getIn().getHeader("indexType", String.class);
+        if (indexType == null) {
+            indexType = endpoint.getConfig().getIndexType();
+        }
 
-		IndexRequestBuilder prepareIndex = client.prepareIndex(indexName, indexType);
-		if(!setIndexRequestSource(exchange.getIn(), prepareIndex)) {
-			throw new ExpectedBodyTypeException(exchange, XContentBuilder.class);
-		}
-		ListenableActionFuture<IndexResponse> future = prepareIndex.execute();
-		IndexResponse response = future.actionGet();
+        IndexRequestBuilder prepareIndex = client.prepareIndex(indexName, indexType);
+        if (!setIndexRequestSource(exchange.getIn(), prepareIndex)) {
+            throw new ExpectedBodyTypeException(exchange, XContentBuilder.class);
+        }
+        ListenableActionFuture<IndexResponse> future = prepareIndex.execute();
+        IndexResponse response = future.actionGet();
     }
 
     private boolean setIndexRequestSource(Message msg, IndexRequestBuilder builder) {
-    	Object body = null;
-    	boolean converted = false;
+        Object body = null;
+        boolean converted = false;
 
-    	// order is important
-    	Class<?>[] types = new Class[]{
-    			XContentBuilder.class,
-    			Map.class,
-    			byte[].class,
-    			String.class,
-    			};
+        // order is important
+        Class<?>[] types = new Class[] {XContentBuilder.class, Map.class, byte[].class, String.class};
 
-    	for (int i = 0; i < types.length && body == null; i++) {
-			Class<?> type = types[i];
-			body = msg.getBody(type);
-		}
+        for (int i = 0; i < types.length && body == null; i++) {
+            Class<?> type = types[i];
+            body = msg.getBody(type);
+        }
 
-		if(body != null) {
-			converted = true;
-			if(body instanceof byte[]) {
-				builder.setSource((byte[]) body);
-			} else if(body instanceof Map) {
-				builder.setSource((Map<String, Object>) body);
-			} else if(body instanceof String) {
-				builder.setSource((String) body);
-			} else if(body instanceof XContentBuilder) {
-				builder.setSource((XContentBuilder) body);
-			} else {
-				converted = false;
-			}
-		}
-		return converted;
+        if (body != null) {
+            converted = true;
+            if (body instanceof byte[]) {
+                builder.setSource((byte[])body);
+            } else if (body instanceof Map) {
+                builder.setSource((Map<String, Object>)body);
+            } else if (body instanceof String) {
+                builder.setSource((String)body);
+            } else if (body instanceof XContentBuilder) {
+                builder.setSource((XContentBuilder)body);
+            } else {
+                converted = false;
+            }
+        }
+        return converted;
     }
 }
